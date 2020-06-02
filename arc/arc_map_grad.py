@@ -129,7 +129,7 @@ class ARC_Task():
         out_size = kl.Dense(2, name = 'output_size')(out)
         w = tf.stop_gradient(tf.round(out_size[0][1]))
         h = tf.stop_gradient(tf.round(out_size[0][0]))
-
+        
         @tf.custom_gradient
         def resize_im(x, y, z):
             feature = x
