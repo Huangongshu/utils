@@ -1,0 +1,121 @@
+# -*- coding: utf-8 -*-
+#author: huan
+#efficientnetb0 input_sz = (224, 224, 3)
+
+#--project is used to control the train project，change it When we want to train another model。
+
+#train
+#b0
+
+python3 main.py --train_info_path=./label/train.txt --eval_info_path=./label/eval.txt \
+--split=0 --root=/home/ouzhuang/chromosome_Karyotyping/classification_dataset \
+--project=b0 --classnum=2 --head=24 --m=efficientnetb0 \
+--weights=efficientnet-b0_imagenet_1000_notop.h5 \
+--i_h=224 --i_w=224
+
+#b0q_down
+
+python3 main.py --train_info_path=./label/train.txt --eval_info_path=./label/eval.txt \
+--split=0 --root=/home/ouzhuang/chromosome_Karyotyping/classification_dataset \
+--project=b0q_down --classnum=2 --head=24 --m=efficientnetb0 \
+--weights=efficientnet-b0_imagenet_1000_notop.h5 \
+--i_h=224 --i_w=224 --q_down
+
+#b1
+
+python3 main.py --train_info_path=./label/train.txt --eval_info_path=./label/eval.txt \
+--split=0 --root=/home/ouzhuang/chromosome_Karyotyping/classification_dataset \
+--project=b1 --classnum=2 --head=24 --m=efficientnetb1 \
+--weights=efficientnet-b1_imagenet_1000_notop.h5 \
+--i_h=240 --i_w=240
+
+#b2
+
+python3 main.py --train_info_path=./label/train.txt --eval_info_path=./label/eval.txt \
+--split=0 --root=/home/ouzhuang/chromosome_Karyotyping/classification_dataset \
+--project=b2 --classnum=2 --head=24 --m=efficientnetb2 \
+--weights=efficientnet-b2_imagenet_1000_notop.h5 \
+--i_h=260 --i_w=260
+
+#b3
+
+python3 main.py --train_info_path=./label/train.txt --eval_info_path=./label/eval.txt \
+--split=0 --root=/home/ouzhuang/chromosome_Karyotyping/classification_dataset \
+--project=b3 --classnum=2 --head=24 --m=efficientnetb3 \
+--weights=efficientnet-b3_imagenet_1000_notop.h5 \
+--i_h=300 --i_w=300
+
+#b4
+
+python3 main.py --train_info_path=./label/train.txt --eval_info_path=./label/eval.txt \
+--split=0 --root=/home/ouzhuang/chromosome_Karyotyping/classification_dataset \
+--project=b4 --classnum=2 --head=24 --m=efficientnetb4 \
+--weights=efficientnet-b4_imagenet_1000_notop.h5 \
+--i_h=380 --i_w=380
+
+#resnet
+
+python3 main.py --train_info_path=./label/train.txt --eval_info_path=./label/eval.txt \
+--split=0 --root=/home/ouzhuang/chromosome_Karyotyping/classification_dataset \
+--project=resnet --classnum=2 --head=24 --m=resnet \
+--weights=resnet50_model_only_weights.h5 \
+--i_h=224 --i_w=224
+
+#restart in interrupt epoch
+
+python3 main.py --restart --info_path=./chromosome/label/1.txt \
+--root=./chromosome --project=0
+
+python3 main.py --train_info_path=./label/train.txt --eval_info_path=./label/eval.txt \
+--split=0 --root=/home/ouzhuang/chromosome_Karyotyping/classification_dataset \
+--project=b1 --classnum=2 --head=24 --m=efficientnetb1 \
+--weights=efficientnet-b1_imagenet_1000_notop.h5 \
+--i_h=240 --i_w=240 --restart
+
+#train in one epoch, use the --test_epoch=
+
+python3 main.py --restart --test_epoch=10 \
+--info_path=./chromosome/label/1.txt \
+--root=./chromosome --project=0
+
+python3 main.py --train_info_path=./label/train.txt --eval_info_path=./label/eval.txt \
+--split=0 --root=/home/ouzhuang/chromosome_Karyotyping/classification_dataset \
+--project=0 --classnum=2 --head=24 --restart --test_epoch=150 --i_h=240 --i_w=240
+
+#test in one epoch, use the --test_epoch=
+
+python3 main.py --train_info_path=./label/train.txt --eval_info_path=./label/eval.txt \
+--split=0 --m=efficientnetb1 --root=/home/ouzhuang/chromosome_Karyotyping/classification_dataset \
+--project=b1 --classnum=2 --head=24 --restart --weights=efficientnet-b1_imagenet_1000_notop.h5 \
+--is_train --test_path=./label/test.txt --i_h=240 --i_w=240 --test_epoch=110
+
+python3 main.py --train_info_path=./label/train.txt --eval_info_path=./label/eval.txt \
+--split=0 --root=/home/ouzhuang/chromosome_Karyotyping/classification_dataset \
+--project=resnet --classnum=2 --head=24 --m=resnet --weights=resnet50_model_only_weights.h5 \
+--is_train --test_path=./label/test.txt --i_h=224 --i_w=224 --restart --test_epoch=345
+
+#test
+
+python3 main.py --train_info_path=./label/train.txt --eval_info_path=./label/eval.txt \
+--split=0 --m=efficientnetb1 --root=/home/ouzhuang/chromosome_Karyotyping/classification_dataset \
+--project=b1 --classnum=2 --head=24 --restart --weights=efficientnet-b1_imagenet_1000_notop.h5 \
+--is_train --test_path=./label/test.txt --i_h=240 --i_w=240 --restart
+
+python3 main.py --train_info_path=./label/train.txt --eval_info_path=./label/eval.txt \
+--split=0 --root=/home/ouzhuang/chromosome_Karyotyping/classification_dataset \
+--project=resnet --classnum=2 --head=24 --m=resnet --weights=resnet50_model_only_weights.h5 \
+--is_train --test_path=./label/test.txt --i_h=224 --i_w=224 --restart
+
+#test time
+
+python3 test.py --train_info_path=./label/train.txt --eval_info_path=./label/eval.txt \
+--split=0 --m=efficientnetb2 --root=/home/ouzhuang/chromosome_Karyotyping/classification_dataset \
+--project=b2 --classnum=2 --head=24 --restart --weights=efficientnet-b2_imagenet_1000_notop.h5 \
+--is_train --test_path=test/E00019_2_14_27_15_28.jpg --i_h=260 --i_w=260
+
+#get the test model in one epoch
+
+python3 main.py --train_info_path=./label/train.txt --eval_info_path=./label/eval.txt \
+--split=0 --m=efficientnetb1 --root=/home/ouzhuang/chromosome_Karyotyping/classification_dataset \
+--project=b1 --classnum=2 --head=24 --restart --weights=efficientnet-b1_imagenet_1000_notop.h5 \
+--is_train --test_path=./label/test.txt --i_h=240 --i_w=240 --test_epoch=110 --get_model
