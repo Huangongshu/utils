@@ -14,6 +14,18 @@ from keras.utils import to_categorical
 def check_path(path):
     if os.path.exists(path) == False:
         os.makedirs(path)
+def get_args(config, name = []):
+    temp = {}
+    for n in name:
+        temp[n] = getattr(config, n)
+     return temp
+def update_args(config, name):
+    for k, v in name.items():
+        if hasattr(config, k):
+            setattr(config, k, v)
+         else:
+            config.k = v
+    return config
 
 def load_data(path, config):
     x, y = [], []
@@ -278,3 +290,4 @@ class DataSet():
     def get_label(self):
         return self._y
     
+
